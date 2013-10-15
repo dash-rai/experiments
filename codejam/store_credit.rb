@@ -9,6 +9,7 @@ Successfully solves both large and small inputs.
 To execute, run "ruby store_credit.rb > output_file"
 
 =end
+
 input_file_name = "input" #Input file.
 
 #open file
@@ -22,15 +23,17 @@ end
 
 N = inputArray[0].to_i
 
-for i in (0...N)
+(0...N).each do |i|
   credit = inputArray[i*3 + 1].to_i
   items = inputArray[i*3 + 2].to_i
   item_list = inputArray[i*3 + 3].split(' ').map {|x| x.to_i}
-
-  for j in (0...(items-1))
-    for k in (j+1...items)
-      if item_list[j] + item_list[k] == credit
-        puts "Case \##{i+1}: #{j+1} #{k+1}"
+  catch :done do
+    (0...(items-1)).each do |j|
+      (j+1...items).each do |k|
+        if item_list[j] + item_list[k] == credit
+          puts "Case \##{i+1}: #{j+1} #{k+1}"
+          throw :done
+        end
       end
     end
   end
